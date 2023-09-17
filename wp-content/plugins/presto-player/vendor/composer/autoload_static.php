@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c
+class ComposerStaticInit2088a5db383ba33e04a645a83441ab24
 {
     public static $files = array (
         'b506a6b9998b6104a0eae10a34d50f61' => __DIR__ . '/../..' . '/inc/support.php',
@@ -211,6 +211,7 @@ class ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c
         'PrestoPlayer\\Bar\\A' => __DIR__ . '/..' . '/level-2/dice/tests/TestData/Namespace.php',
         'PrestoPlayer\\Bar\\B' => __DIR__ . '/..' . '/level-2/dice/tests/TestData/Namespace.php',
         'PrestoPlayer\\Blocks\\AudioBlock' => __DIR__ . '/../..' . '/inc/Blocks/AudioBlock.php',
+        'PrestoPlayer\\Blocks\\ReusableEditBlock' => __DIR__ . '/../..' . '/inc/Blocks/ReusableEditBlock.php',
         'PrestoPlayer\\Blocks\\ReusableVideoBlock' => __DIR__ . '/../..' . '/inc/Blocks/ReusableVideoBlock.php',
         'PrestoPlayer\\Blocks\\SelfHostedBlock' => __DIR__ . '/../..' . '/inc/Blocks/SelfHostedBlock.php',
         'PrestoPlayer\\Blocks\\VimeoBlock' => __DIR__ . '/../..' . '/inc/Blocks/VimeoBlock.php',
@@ -266,6 +267,7 @@ class ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c
         'PrestoPlayer\\Models\\Video' => __DIR__ . '/../..' . '/inc/Models/Video.php',
         'PrestoPlayer\\Models\\Webhook' => __DIR__ . '/../..' . '/inc/Models/Webhook.php',
         'PrestoPlayer\\Mundschenk\\WP_Requirements' => __DIR__ . '/..' . '/mundschenk-at/check-wp-requirements/class-wp-requirements.php',
+        'PrestoPlayer\\Playlist' => __DIR__ . '/../..' . '/inc/Playlist.php',
         'PrestoPlayer\\Plugin' => __DIR__ . '/../..' . '/inc/Plugin.php',
         'PrestoPlayer\\Requirements' => __DIR__ . '/../..' . '/inc/Requirements.php',
         'PrestoPlayer\\Seeds\\AudioPresetSeeder' => __DIR__ . '/../..' . '/inc/Seeds/AudioPresetSeeder.php',
@@ -349,9 +351,9 @@ class ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbadbbafa8a5ace42790181ce8964d63c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2088a5db383ba33e04a645a83441ab24::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2088a5db383ba33e04a645a83441ab24::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2088a5db383ba33e04a645a83441ab24::$classMap;
 
         }, null, ClassLoader::class);
     }

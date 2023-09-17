@@ -256,6 +256,9 @@ class Scripts
             wp_set_script_translations('surecart/blocks/admin', 'presto-player');
         }
 
+        wp_localize_script('surecart/blocks/admin', 'scIcons', ['path' => esc_url_raw(plugin_dir_url(PRESTO_PLAYER_PLUGIN_FILE) . 'dist/icon-assets')]);
+
+
         wp_localize_script(
             'surecart/blocks/admin',
             'prestoPlayerAdmin',

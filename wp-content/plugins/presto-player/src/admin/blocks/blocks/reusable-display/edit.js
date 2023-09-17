@@ -1,63 +1,90 @@
-// In your application's entrypoint
-const { __ } = wp.i18n;
-const { InnerBlocks, useBlockProps } = wp.blockEditor;
-const { BlockControls, InspectorControls } = wp.editor;
-const {
-  Disabled,
-  Toolbar,
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import {
+  InspectorControls,
+  useBlockProps,
+  useInnerBlocksProps,
+} from "@wordpress/block-editor";
+import { createBlock } from "@wordpress/blocks";
+import {
   Button,
   PanelBody,
-  Panel,
+  PanelRow,
   Placeholder,
   Spinner,
-} = wp.components;
-const { useSelect, dispatch } = wp.data;
-const { useState, useEffect } = wp.element;
-const { parse } = wp.blockSerializationDefaultParser;
+  TextControl,
+} from "@wordpress/components";
+import {
+  store as coreStore,
+  useEntityBlockEditor,
+  useEntityProp,
+} from "@wordpress/core-data";
+import { useSelect, useDispatch } from "@wordpress/data";
+import { useEffect } from "@wordpress/element";
+import { __ } from "@wordpress/i18n";
 
-export default ({ attributes, isSelected, clientId }) => {
-  const { id } = attributes;
+export default ({ attributes, context, isSelected, clientId }) => {
+  const { id: idAttribute } = attributes;
+  const id = context["presto-player/playlist-media-id"] || idAttribute;
   const blockProps = useBlockProps();
-  const [hasResolved, setHasResolved] = useState(false);
-  const [block, setBlock] = useState([]);
-  const [link, setLink] = useState("");
-
-  const video = useSelect((select) => {
-    if (!id) {
-      return;
-    }
-    return select("presto-player/player").getReusableVideo(id);
+  const { selectBlock } = useDispatch("core/editor");
+  const [blocks, onInput, onChange] = useEntityBlockEditor(
+    "postType",
+    "pp_video_block",
+    { id }
+  );
+  const [title, setTitle] = useEntityProp(
+    "postType",
+    "pp_video_block",
+    "title",
+    id
+  );
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    value: blocks,
+    onInput,
+    onChange,
+    templateLock: "all",
   });
 
   useEffect(() => {
-    wp.data.dispatch("core/block-editor").selectBlock(clientId);
-  }, [hasResolved]);
-
-  // lock inner blocks
-  const innerBlocks = useSelect((select) => {
-    return select("core/editor").getBlocksByClientId(clientId)[0].innerBlocks;
-  });
-  if (innerBlocks && video?.id) {
-    innerBlocks.forEach(function (block) {
-      dispatch("core/editor").updateBlockAttributes(block.clientId, {
-        selectionOverrideClientId: clientId,
-      });
-    });
-  }
-
-  useEffect(() => {
-    if (video.id) {
-      setHasResolved(true);
-      // set inner block
-      const blocks = parse(video?.content?.raw);
-      setBlock([
-        blocks?.[0]?.innerBlocks[0].blockName,
-        blocks?.[0]?.innerBlocks[0].attrs,
-      ]);
-
-      setLink(`post.php?post=${video.id}&action=edit`);
+    // if this is selected, and we are in the playlist context, select the inner block.
+    if (isSelected && context["presto-player/playlist-media-id"]) {
+      const blockOrder = wp.data
+        .select("core/block-editor")
+        .getBlockOrder(clientId);
+      const firstInnerBlockClientId = blockOrder[0];
+      selectBlock(firstInnerBlockClientId);
     }
-  }, [video]);
+  }, [isSelected]);
+
+  // create a block and call innerblocks onChange function
+  // we use onChange instead of onInput to create an undo level.
+  const insertBlockType = (type) =>
+    onChange([createBlock(`presto-player/${type}`)], {});
+
+  const { isMissing, hasResolved } = useSelect(
+    (select) => {
+      const queryArgs = ["postType", "pp_video_block", id];
+      const hasResolved = select(coreStore).hasFinishedResolution(
+        "getEntityRecord",
+        queryArgs
+      );
+      const form = select(coreStore).getEntityRecord(...queryArgs);
+      const canEdit =
+        select(coreStore).canUserEditEntityRecord("pp_video_block");
+      return {
+        canEdit,
+        isMissing: hasResolved && !form,
+        hasResolved,
+        isResolving: select(coreStore).isResolving(
+          "getEntityRecord",
+          queryArgs
+        ),
+        form,
+      };
+    },
+    [id]
+  );
 
   if (!hasResolved) {
     return (
@@ -69,47 +96,125 @@ export default ({ attributes, isSelected, clientId }) => {
     );
   }
 
-  if (!block) {
-    return;
+  if (!id && context["presto-player/playlist-media-id"] !== undefined) {
+    return (
+      <Placeholder
+        css={css`
+          &.components-placeholder {
+            min-height: 350px;
+          }
+        `}
+        withIllustration
+      />
+    );
+  }
+
+  if (isMissing) {
+    return (
+      <div {...blockProps}>
+        {__(
+          "The selected media item has been deleted or is unavailable.",
+          "presto-player"
+        )}
+      </div>
+    );
+  }
+
+  if (!blocks.length) {
+    return (
+      <Placeholder
+        css={css`
+          &.components-placeholder {
+            min-height: 350px;
+          }
+        `}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="presto-block-icon"
+          >
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+        }
+        instructions={__(
+          "Choose a video type to get started.",
+          "presto-player"
+        )}
+        label={__("Choose a Video Type", "presto-player")}
+      >
+        <Button
+          variant="primary"
+          onClick={() => {
+            insertBlockType("self-hosted");
+          }}
+        >
+          {__("Video", "presto-player")}
+        </Button>
+
+        <Button
+          variant="primary"
+          onClick={() => {
+            insertBlockType("youtube");
+          }}
+        >
+          {__("Youtube", "presto-player")}
+        </Button>
+
+        <Button
+          variant="primary"
+          onClick={() => {
+            insertBlockType("vimeo");
+          }}
+        >
+          {__("Vimeo", "presto-player")}
+        </Button>
+
+        {!!prestoPlayer?.isPremium && (
+          <Button
+            variant="primary"
+            onClick={() => {
+              insertBlockType("bunny");
+            }}
+          >
+            {__("Bunny.net", "presto-player")}
+          </Button>
+        )}
+
+        <Button
+          variant="primary"
+          onClick={() => {
+            insertBlockType("audio");
+          }}
+        >
+          {__("Audio", "presto-player")}
+        </Button>
+      </Placeholder>
+    );
   }
 
   return (
     <>
       <InspectorControls>
-        <PanelBody>
-          <p>
-            This is a reusable video that you can edit once and place anywhere.
-          </p>
-          <Button isSecondary href={"edit.php?post_type=pp_video_block"}>
-            {__("Manage Media Hub", "presto-player")}
-          </Button>
+        <PanelBody title={__("Media Hub Title", "surecart")}>
+          <PanelRow>
+            <TextControl
+              label={__("Media Hub Title", "surecart")}
+              value={title}
+              onChange={(title) => setTitle(title)}
+            />
+          </PanelRow>
         </PanelBody>
       </InspectorControls>
-      <div className={"block-library-block__reusable-block-container"}>
-        <div {...blockProps}>
-          {isSelected && (
-            <div className="reusable-block-edit-panel">
-              <b className="reusable-block-edit-panel__info">
-                {video?.title?.raw}
-              </b>
-              <Button
-                isSecondary
-                href={link}
-                className="reusable-block-edit-panel__button"
-              >
-                {__("Edit Reusable Video", "presto-player")}
-              </Button>
-            </div>
-          )}
-          <Disabled>
-            <InnerBlocks
-              template={[block]}
-              templateLock={"all"}
-              renderAppender={false}
-            />
-          </Disabled>
-        </div>
-      </div>
+      <div {...innerBlocksProps} />
     </>
   );
 };

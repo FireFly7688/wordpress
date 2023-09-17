@@ -23,6 +23,8 @@ export interface BunnyConfig extends Object {
   preview: string;
 }
 export interface i18nConfig extends Object {
+  startOver?: string;
+  upNext?: string;
   rewatch: string;
   emailPlaceholder?: string;
   skip?: string;
@@ -48,10 +50,20 @@ export interface ButtonLinkObject extends Object {
   type: string;
   opensInNewTab: boolean;
 }
+export interface PlaylistItem extends Object {
+  id: number;
+  config: PrestoConfig;
+  duration: string;
+  title: string;
+}
 export interface PrestoConfig extends Object {
+  styles?: string;
   type?: string;
   preset?: presetAttributes;
   autoplay?: boolean;
+  id?: number;
+  title?: string;
+  playerClass?: string;
   blockAttributes?: blockAttributes;
   chapters?: prestoChapters;
   branding?: prestoBranding;

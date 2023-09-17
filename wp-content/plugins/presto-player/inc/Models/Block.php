@@ -12,7 +12,8 @@ class Block
             'presto-player/vimeo',
             'presto-player/youtube',
             'presto-player/bunny',
-            'presto-player/audio'
+            'presto-player/audio',
+            'presto-player/playlist-block'
         ]);
     }
 }

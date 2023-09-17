@@ -4,7 +4,7 @@ Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 5.6
 Tested up to: 6.2
-Stable tag: 1.14.1
+Stable tag: 2.0.4
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,22 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 2.0.4 = 
+* Fix: Issue with private videos in playlists (requires Pro 2.0.1)
+
+= 2.0.3 = 
+* Fix: Compatibility with Elementor 3.6+ 
+
+= 2.0.2 = 
+* Fix: Issue with captions not loading on playlists.
+
+= 2.0.1 = 
+* New: Add shortcode for playlists. (Pro)
+
+= 2.0.0 = 
+* New: Playlists (Pro)
+* Improvement: Update HLS streaming library for more reliable HLS playback.
 
 = 1.14.1 =
 * Fix: When a new media item added to media hub it replaces existing media from Elementor widget.

@@ -48,6 +48,10 @@ export declare class PrestoPlayer {
    */
   loaded: EventEmitter<boolean>;
   currentMediaPlayer: EventEmitter<object>;
+  playerReady: EventEmitter<object>;
+  playedMedia: EventEmitter<object>;
+  pausedMedia: EventEmitter<object>;
+  endedMedia: EventEmitter<object>;
   /**
    * State() variables
    */
@@ -63,6 +67,7 @@ export declare class PrestoPlayer {
   ctaActive: boolean;
   emailActive: boolean;
   actionBarActive: boolean;
+  ready: boolean;
   private observer;
   private overlaysComponent;
   private components;
@@ -144,7 +149,9 @@ export declare class PrestoPlayer {
     };
     resetOnEnd: boolean;
     vimeo: {
-      byline: boolean;
+      byline: boolean; /**
+       * State() variables
+       */
       portrait: boolean;
       title: boolean;
       speed: boolean;
@@ -160,10 +167,7 @@ export declare class PrestoPlayer {
       modestbranding: number;
       customControls: boolean;
       noCookie: boolean;
-      playsinline: boolean; /**
-       * Go to and play
-       * @param time number
-       */
+      playsinline: boolean;
     };
     tooltips: {
       controls: boolean;
@@ -178,9 +182,7 @@ export declare class PrestoPlayer {
     blockAttributes: {
       type: string;
       color?: string;
-      id?: number; /**
-       * Component loaded
-       */
+      id?: number;
       title?: string;
       src?: string;
       poster?: string;
@@ -188,9 +190,7 @@ export declare class PrestoPlayer {
       autoplay?: boolean;
       mutedPreview?: {
         enabled?: boolean;
-        captions?: boolean; /**
-         * State() variables
-         */
+        captions?: boolean;
       };
       mutedOverlay?: import("../../../interfaces").MutedOverlay;
       constructor: Function;
@@ -256,7 +256,9 @@ export declare class PrestoPlayer {
       };
       resetOnEnd: boolean;
       vimeo: {
-        byline: boolean;
+        byline: boolean; /**
+         * State() variables
+         */
         portrait: boolean;
         title: boolean;
         speed: boolean;
@@ -272,10 +274,7 @@ export declare class PrestoPlayer {
         modestbranding: number;
         customControls: boolean;
         noCookie: boolean;
-        playsinline: boolean; /**
-         * Go to and play
-         * @param time number
-         */
+        playsinline: boolean;
       };
       tooltips: {
         controls: boolean;
@@ -290,9 +289,7 @@ export declare class PrestoPlayer {
       blockAttributes: {
         type: string;
         color?: string;
-        id?: number; /**
-         * Component loaded
-         */
+        id?: number;
         title?: string;
         src?: string;
         poster?: string;
@@ -300,9 +297,7 @@ export declare class PrestoPlayer {
         autoplay?: boolean;
         mutedPreview?: {
           enabled?: boolean;
-          captions?: boolean; /**
-           * State() variables
-           */
+          captions?: boolean;
         };
         mutedOverlay?: import("../../../interfaces").MutedOverlay;
         constructor: Function;

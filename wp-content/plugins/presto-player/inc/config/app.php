@@ -23,6 +23,7 @@ return [
         \PrestoPlayer\Blocks\YouTubeBlock::class,
         \PrestoPlayer\Blocks\VimeoBlock::class,
         \PrestoPlayer\Blocks\ReusableVideoBlock::class,
+        \PrestoPlayer\Blocks\ReusableEditBlock::class,
         \PrestoPlayer\Blocks\AudioBlock::class,
 
         // block services

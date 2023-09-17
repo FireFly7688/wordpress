@@ -13,7 +13,7 @@ const {
   Spinner,
 } = wp.components;
 
-const { BlockControls, InspectorControls } = wp.editor;
+import { BlockControls, InspectorControls } from "@wordpress/block-editor";
 const { compose } = wp.compose;
 const { useEffect, useState } = wp.element;
 const { dispatch } = wp.data;

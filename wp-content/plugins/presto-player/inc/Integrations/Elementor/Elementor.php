@@ -6,14 +6,11 @@ class Elementor
 {
     public function register()
     {
-        add_action('elementor/widgets/widgets_registered', [$this, 'widget']);
+        add_action('elementor/widgets/register', [$this, 'widget']);
     }
 
-    public function widget()
+    public function widget($widgets_manager)
     {
-        if (!class_exists('\Elementor\Plugin')) {
-            return;
-        }
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new ReusableVideoWidget());
+        $widgets_manager->register(new ReusableVideoWidget());
     }
 }

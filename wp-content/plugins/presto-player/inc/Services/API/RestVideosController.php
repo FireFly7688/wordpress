@@ -3,8 +3,7 @@
 namespace PrestoPlayer\Services\API;
 
 use PrestoPlayer\Models\Video;
-use PrestoPlayer\Models\CurrentUser;
-use PrestoPlayer\Pro\Services\Bunny\URL;
+use PrestoPlayer\Playlist;
 
 class RestVideosController extends \WP_REST_Controller
 {
@@ -88,6 +87,30 @@ class RestVideosController extends \WP_REST_Controller
             ],
             'schema' => [$this, 'get_schema']
         ]);
+
+        register_rest_field(
+            'pp_video_block',
+            'details',
+            array(
+                'get_callback' => array($this, 'get_video_details'),
+                'schema'       => null,
+            )
+        );
+    }
+
+    /**
+     * Get Video Details
+     *
+     * @since x.x.x
+     * @param  string $object     Rest Object.
+     * @param  string $field_name Rest Field.
+     * @param  array  $request    Rest Request.
+     * @return string             Site type either Free or Premium.
+     */
+    public function get_video_details($object = '', $field_name = '', $request = array())
+    {
+        $post_id = (int) $object['id'];
+        return (new Playlist())->get_playlist_details($post_id);
     }
 
     /**
@@ -337,8 +360,8 @@ class RestVideosController extends \WP_REST_Controller
             'src' => esc_url_raw($request['src'])
         ];
 
-        if( ! empty( $request['title'] ) ) {
-            $prepared['title'] = sanitize_text_field( $request['title'] );
+        if (!empty($request['title'])) {
+            $prepared['title'] = sanitize_text_field($request['title']);
         }
 
         return apply_filters('presto_player_rest_prepared_database_item', $prepared);

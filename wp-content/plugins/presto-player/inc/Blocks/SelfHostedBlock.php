@@ -65,4 +65,21 @@ class SelfHostedBlock extends Block
             'src'   => !empty($attributes['attachment_id']) ? Attachment::getSrc($attributes['attachment_id']) : $src,
         ];
     }
+
+    /**
+     * Override attributes
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function overrideAttributes($attributes)
+    {
+        $load = $this->middleware($attributes, '');
+
+        if (!$load) {
+            return array();
+        }
+
+        return $attributes;
+    }
 }

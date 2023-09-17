@@ -118,6 +118,8 @@ class Translation implements Service
                 480 => __('SD', 'presto-player'),
             ],
             'auto' => __('AUTO', 'presto-player'),
+            'upNext' => __('Up Next', 'presto-player'),
+            'startOver' => __('Start Over', 'presto-player'),
         ];
     }
 }

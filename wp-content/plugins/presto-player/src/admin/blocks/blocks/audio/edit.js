@@ -1,8 +1,8 @@
 import HostedAudioPlaceholder from "./HostedAudioPlaceholder";
-import { InspectorControls, BlockControls } from "@wordpress/editor";
+import { InspectorControls, BlockControls } from "@wordpress/block-editor";
 import AudioBlockInspectorControl from "./AudioBlockInspectorControl";
 import Player from "@/admin/blocks/shared/Player";
-const { compose } = wp.compose;
+import { compose } from "@wordpress/compose";
 import withPlayerEdit from "./with-player-edit";
 import withPlayerData from "./with-player-data";
 import {

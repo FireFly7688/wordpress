@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-28T15:37:08+00:00\n"
+"POT-Creation-Date: 2023-09-14T17:31:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 
@@ -27,6 +27,7 @@ msgstr ""
 #: admin/blocks/blocks/bunny/popup/stream/CollectionHeader.js:98
 #: admin/blocks/blocks/bunny/popup/stream/collections/CreateCollection.js:79
 #: admin/blocks/blocks/bunny/popup/stream/Sidebar.js:158
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:186
 #: admin/blocks/shared/audio-placeholder.js:140
 #: admin/blocks/shared/audio-placeholder.js:144
 #: admin/blocks/shared/audioPresets/Edit.js:340
@@ -173,7 +174,10 @@ msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:38
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:44
-#: admin/blocks/shared/chapters/components/Chapter.js:41
+#: admin/blocks/blocks/playlist-list-item/edit.js:69
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:101
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:103
+#: admin/blocks/shared/chapters/components/Chapter.js:37
 msgid "Title"
 msgstr ""
 
@@ -533,6 +537,7 @@ msgid "Enter a collection name"
 msgstr ""
 
 #: admin/blocks/blocks/bunny/popup/stream/collections/CreateCollection.js:76
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:114
 #: admin/settings/pages/parts/Webhooks/NewWebhook.js:122
 #: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:114
 #: Integrations/Elementor/ReusableVideoWidget.php:150
@@ -634,6 +639,7 @@ msgid "Upload New Video"
 msgstr ""
 
 #: admin/blocks/blocks/bunny/popup/stream/video/Videos.js:125
+#: Services/Shortcodes.php:125
 msgid "Videos"
 msgstr ""
 
@@ -739,43 +745,149 @@ msgstr ""
 msgid "Private video self-hosted block."
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:84
-msgid "Manage Media Hub"
+#: admin/blocks/blocks/playlist-list-item/edit.js:67
+#: admin/blocks/blocks/playlist/edit.js:185
+#: admin/settings/app.js:94
+#: admin/settings/pages/General.js:117
+msgid "General"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:100
-msgid "Edit Reusable Video"
+#: admin/blocks/blocks/playlist-list-item/edit.js:76
+#: Services/Translation.php:87
+msgid "Duration"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:95
+#: admin/blocks/blocks/playlist-list-item/edit.js:96
+msgid "Title..."
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/index.js:18
+#: admin/blocks/blocks/playlist-list-item/index.js:19
+msgid "Playlist Item"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:91
+#: admin/settings/app.js:47
+#: admin/settings/components/Group.js:25
+#: admin/settings/pages/parts/EmailExport.js:39
+#: admin/settings/pages/parts/Webhooks/Webhook.js:63
+msgid "Something went wrong"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:123
+msgid "Go Back"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:141
+msgid "Select Media"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:142
+msgid "Create or select media"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:143
+msgid "Search"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:162
+msgid "Add New"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:177
+msgid "Add To Playlist"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list/index.js:39
+msgid "Playlist List"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list/index.js:41
+msgid "Presto Playlist List Block - Holds the Playlist List Items."
+msgstr ""
+
+#: admin/blocks/blocks/playlist-preview/index.js:34
+msgid "Playlist Preview"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-preview/index.js:36
+msgid "Presto Playlist Preview Block - Shows the preview of the playlist item."
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:134
+msgid "Add a Playlist Item to get started."
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:138
+msgid "Presto Player Playlist"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:165
+msgid "Highlight Color"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:187
+msgid "Playlist Title"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:193
+msgid "Playlist Items Text - Singular"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:199
+msgid "Playlist Items Text - Plural"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:205
+msgid "Transition Duration (Seconds)"
+msgstr ""
+
+#: admin/blocks/blocks/reusable-display/edit.js:115
+msgid "The selected media item has been deleted or is unavailable."
+msgstr ""
+
+#: admin/blocks/blocks/reusable-display/edit.js:148
+#: admin/blocks/blocks/reusable-edit/edit.js:70
 msgid "Choose a video type to get started."
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:99
+#: admin/blocks/blocks/reusable-display/edit.js:152
+#: admin/blocks/blocks/reusable-edit/edit.js:74
 msgid "Choose a Video Type"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:107
+#: admin/blocks/blocks/reusable-display/edit.js:160
+#: admin/blocks/blocks/reusable-edit/edit.js:82
 #: Integrations/Elementor/VideoWidget.php:148
+#: Services/Shortcodes.php:126
 msgid "Video"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:115
+#: admin/blocks/blocks/reusable-display/edit.js:169
+#: admin/blocks/blocks/reusable-edit/edit.js:85
 #: admin/blocks/shared/presets/Behavior.js:142
 msgid "Youtube"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:123
+#: admin/blocks/blocks/reusable-display/edit.js:178
+#: admin/blocks/blocks/reusable-edit/edit.js:88
 #: Integrations/Elementor/VideoWidget.php:160
 msgid "Vimeo"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:132
+#: admin/blocks/blocks/reusable-display/edit.js:188
+#: admin/blocks/blocks/reusable-edit/edit.js:92
 msgid "Bunny.net"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-edit/index.js:143
+#: admin/blocks/blocks/reusable-display/edit.js:198
+#: admin/blocks/blocks/reusable-edit/edit.js:98
 msgid "Audio"
+msgstr ""
+
+#: admin/blocks/blocks/reusable-display/edit.js:207
+#: admin/blocks/blocks/reusable-display/edit.js:210
+msgid "Media Hub Title"
 msgstr ""
 
 #: admin/blocks/blocks/vimeo/edit.js:99
@@ -1253,11 +1365,11 @@ msgstr ""
 msgid "Save Branding"
 msgstr ""
 
-#: admin/blocks/shared/chapters/components/Chapter.js:54
+#: admin/blocks/shared/chapters/components/Chapter.js:50
 msgid "Remove Chapter"
 msgstr ""
 
-#: admin/blocks/shared/chapters/components/Chapter.js:62
+#: admin/blocks/shared/chapters/components/Chapter.js:58
 msgid "Add Chapter"
 msgstr ""
 
@@ -2016,18 +2128,6 @@ msgstr ""
 msgid "Settings Updated"
 msgstr ""
 
-#: admin/settings/app.js:47
-#: admin/settings/components/Group.js:25
-#: admin/settings/pages/parts/EmailExport.js:39
-#: admin/settings/pages/parts/Webhooks/Webhook.js:63
-msgid "Something went wrong"
-msgstr ""
-
-#: admin/settings/app.js:94
-#: admin/settings/pages/General.js:117
-msgid "General"
-msgstr ""
-
 #: admin/settings/app.js:103
 #: admin/settings/pages/Integrations.js:158
 msgid "Integrations"
@@ -2617,6 +2717,7 @@ msgstr ""
 
 #: admin/blocks/blocks/bunny/block.json
 #: admin/blocks/blocks/hosted/block.json
+#: admin/blocks/blocks/playlist/block.json
 #: admin/blocks/blocks/vimeo/block.json
 #: admin/blocks/blocks/youtube/block.json
 msgctxt "block keyword"
@@ -2631,6 +2732,27 @@ msgstr ""
 #: admin/blocks/blocks/hosted/block.json
 msgctxt "block description"
 msgid "Presto Self-hosted video block."
+msgstr ""
+
+#: admin/blocks/blocks/playlist/block.json
+msgctxt "block title"
+msgid "Presto Playlist"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/block.json
+#: admin/blocks/blocks/reusable-edit/block.json
+msgctxt "block description"
+msgid "Create a playlist of videos or audio."
+msgstr ""
+
+#: admin/blocks/blocks/playlist/block.json
+msgctxt "block keyword"
+msgid "playlist"
+msgstr ""
+
+#: admin/blocks/blocks/reusable-edit/block.json
+msgctxt "block title"
+msgid "Reusable Block Container"
 msgstr ""
 
 #: admin/blocks/blocks/vimeo/block.json
@@ -2856,7 +2978,7 @@ msgstr ""
 
 #: Services/API/RestAudioPresetsController.php:90
 #: Services/API/RestPresetsController.php:90
-#: Services/API/RestVideosController.php:106
+#: Services/API/RestVideosController.php:129
 msgid "Unique identifier for the object."
 msgstr ""
 
@@ -2910,39 +3032,39 @@ msgstr ""
 msgid "Style for the caption."
 msgstr ""
 
-#: Services/API/RestVideosController.php:112
+#: Services/API/RestVideosController.php:135
 msgid "Title of the video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:118
+#: Services/API/RestVideosController.php:141
 msgid "Slug for the video type (one of youtube, vimeo, attachment, link)"
 msgstr ""
 
-#: Services/API/RestVideosController.php:125
+#: Services/API/RestVideosController.php:148
 msgid "External unique id."
 msgstr ""
 
-#: Services/API/RestVideosController.php:131
+#: Services/API/RestVideosController.php:154
 msgid "The id of the attachment."
 msgstr ""
 
-#: Services/API/RestVideosController.php:135
+#: Services/API/RestVideosController.php:158
 msgid "The post the video is attached to."
 msgstr ""
 
-#: Services/API/RestVideosController.php:139
+#: Services/API/RestVideosController.php:162
 msgid "Video source url."
 msgstr ""
 
-#: Services/API/RestVideosController.php:193
+#: Services/API/RestVideosController.php:216
 msgid "Cannot create video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:219
+#: Services/API/RestVideosController.php:242
 msgid "Cannot get video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:275
+#: Services/API/RestVideosController.php:298
 msgid "Cannot update video."
 msgstr ""
 
@@ -3013,6 +3135,10 @@ msgstr ""
 msgid "Youtube settings."
 msgstr ""
 
+#: Services/Shortcodes.php:124
+msgid "Playlist"
+msgstr ""
+
 #: Services/Translation.php:48
 msgid "Subscribe To Our YouTube Channel"
 msgstr ""
@@ -3071,10 +3197,6 @@ msgstr ""
 
 #: Services/Translation.php:86
 msgid "Current time"
-msgstr ""
-
-#: Services/Translation.php:87
-msgid "Duration"
 msgstr ""
 
 #: Services/Translation.php:89
@@ -3158,6 +3280,14 @@ msgstr ""
 
 #: Services/Translation.php:120
 msgid "AUTO"
+msgstr ""
+
+#: Services/Translation.php:121
+msgid "Up Next"
+msgstr ""
+
+#: Services/Translation.php:122
+msgid "Start Over"
 msgstr ""
 
 #: Services/VideoPostType.php:83

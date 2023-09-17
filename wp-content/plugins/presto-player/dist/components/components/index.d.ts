@@ -19,6 +19,10 @@ export { PrestoPlayer as PrestoPlayer } from '../types/components/core/player/pr
 export { PrestoPlayerButton as PrestoPlayerButton } from '../types/components/ui/presto-player-button/presto-player-button';
 export { PrestoSkeleton as PrestoPlayerSkeleton } from '../types/components/ui/presto-skeleton/presto-skeleton';
 export { PrestoSpinner as PrestoPlayerSpinner } from '../types/components/ui/presto-spinner/presto-spinner';
+export { PrestoPlaylist as PrestoPlaylist } from '../types/components/core/features/presto-playlist/presto-playlist';
+export { PrestoPlaylistItem as PrestoPlaylistItem } from '../types/components/core/features/presto-playlist-item/presto-playlist-item';
+export { PrestoPlaylistOverlay as PrestoPlaylistOverlay } from '../types/components/core/features/presto-playlist-overlay/presto-playlist-overlay';
+export { PrestoPlayListUI as PrestoPlaylistUi } from '../types/components/core/features/presto-playlist/ui/presto-playlist-ui';
 export { PrestoSearchBar as PrestoSearchBar } from '../types/components/core/features/presto-search-bar/component/presto-search-bar';
 export { PrestoSearchBarUi as PrestoSearchBarUi } from '../types/components/core/features/presto-search-bar/ui/presto-search-bar-ui';
 export { PrestoStackedSkin as PrestoStackedSkin } from '../types/components/ui/skins/presto-stacked-skin/presto-stacked-skin';

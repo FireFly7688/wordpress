@@ -26,6 +26,8 @@ export const options = {
     html: false,
   },
 
+  usesContext: ["presto-player/playlist-media-id"],
+
   icon: (
     <svg
       xmlns="http://www.w3.org/2000/svg"

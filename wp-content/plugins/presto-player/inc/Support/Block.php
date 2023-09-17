@@ -254,7 +254,7 @@ class Block
             'provider' => $this->name,
             'analytics' => Setting::get('analytics', 'enable', false),
             'automations' => Setting::get('performance', 'automations', true),
-            'title' => !empty($attributes['title']) ? $attributes['title'] : '',
+            'title' => !empty($attributes['title']) ? html_entity_decode($attributes['title']) : '',
         ], $attributes);
 
         return wp_parse_args(

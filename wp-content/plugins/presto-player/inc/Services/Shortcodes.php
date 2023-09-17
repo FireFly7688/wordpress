@@ -3,6 +3,8 @@
 namespace PrestoPlayer\Services;
 
 use PrestoPlayer\Blocks\AudioBlock;
+use PrestoPlayer\Pro\Blocks\PlaylistBlock;
+use PrestoPlayer\Playlist;
 use PrestoPlayer\Models\Video;
 use PrestoPlayer\Blocks\VimeoBlock;
 use PrestoPlayer\Blocks\YouTubeBlock;
@@ -15,11 +17,13 @@ class Shortcodes
   public function register()
   {
     add_shortcode('presto_player_chapter', '__return_false');
+    add_shortcode('presto_playlist_item', '__return_false');
     add_shortcode('presto_player_overlay', '__return_false');
     add_shortcode('presto_player_track', '__return_false');
     add_shortcode('presto_player', [$this, 'playerShortcode'], 10, 2);
     add_shortcode('presto_timestamp', [$this, 'timestampShortcode'], 10, 2);
     add_shortcode('pptime', [$this, 'timestampShortcode'], 10, 2);
+    add_shortcode('presto_playlist', [$this, 'playlistShortcode'], 10, 2);
   }
 
   /**
@@ -69,6 +73,27 @@ class Shortcodes
   }
 
   /**
+   * Do the shortcode
+   *
+   * @param array $atts Array of shortcode attributes
+   * @param string $content String of content.
+   * @return void
+   */
+  public function playlistShortcode($atts, $content)
+  {
+    if (!is_admin()) {
+      // global is the most reliable between page builders
+      global $load_presto_js;
+      $load_presto_js = true;
+      (new Scripts())->blockAssets(); // enqueue block assets
+    }
+
+    $atts = $this->parsePlaylistAttributes($atts, $content);
+
+    return (new PlaylistBlock())->html($atts);
+  }
+
+  /**
    * Timestamp shortcode
    *
    * @param array $atts Shortcode attributes.
@@ -84,6 +109,30 @@ class Shortcodes
       $atts
     );
     return '<presto-timestamp time="' . esc_attr($atts['time']) . '">' . $content . '</presto-timestamp>';
+  }
+
+  public function parsePlaylistAttributes($atts, $content = '')
+  {
+
+    // backwards compat.
+    $atts['listTextPlural'] = $atts['listtextplural'] ?? null;
+    $atts['listTextSingular'] = $atts['listtextplural'] ?? null;
+    $atts['transitionDuration'] = $atts['transitionduration'] ?? null;
+
+    $atts = shortcode_atts(
+      [
+        'heading' => __('Playlist', 'presto-player'),
+        'listTextPlural' => __('Videos', 'presto-player'),
+        'listTextSingular' => __('Video', 'presto-player'),
+        'transitionDuration' => 5,
+        'styles' => ''
+      ],
+      $atts
+    );
+
+    $atts['items'] = $this->getPlaylistItems($content);
+
+    return $atts;
   }
 
   public function parseAttributes($atts, $content = '')
@@ -230,6 +279,37 @@ class Shortcodes
     }
 
     return $chapters;
+  }
+
+  public function getPlaylistItems($content)
+  {
+    $items = $this->getShortcodesAtts(
+      'presto_playlist_item',
+      $content,
+      [
+        'duration' => '00:00',
+        'title' => '',
+        'id' => 0
+      ]
+    );
+    foreach ($items as $key => $item) {
+      $video_id = $item['id'];
+      $block = parse_blocks(ReusableVideos::get((int)$video_id));
+      if (!isset($block[0]['innerBlocks'][0]['attrs'])) {
+        unset($items[$key]);
+        continue;
+      }
+      $inner_block = $block[0]['innerBlocks'][0];
+      $attributes = $inner_block['attrs'];
+      $video_details = (new Playlist())->parsed_attributes($inner_block['blockName'], $attributes);
+      $items[$key] = [
+        'id' => $items[$key]['id'],
+        'config' => $video_details,
+        'duration' => $items[$key]['duration'],
+        'title' => $items[$key]['title']
+      ];
+    }
+    return $items;
   }
 
   /**

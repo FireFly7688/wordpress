@@ -1119,6 +1119,7 @@ iframe {
 
 :host {
   position: relative;
+  display: flex;
 }
 
 /*
@@ -1137,6 +1138,10 @@ https://github.com/prestomade/presto-player/issues/140
 
 .presto-player__wrapper {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 .presto-player__wrapper.rtl {

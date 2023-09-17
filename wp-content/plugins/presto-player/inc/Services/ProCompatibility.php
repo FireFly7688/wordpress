@@ -7,7 +7,7 @@ use PrestoPlayer\Pro\Plugin as ProPlugin;
 
 class ProCompatibility
 {
-    protected $recommended_pro_version = '1.1.4';
+    protected $recommended_pro_version = '2.0.1';
     protected $required_pro_version = '0.0.1';
 
     public function register()

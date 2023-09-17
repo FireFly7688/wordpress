@@ -12,7 +12,7 @@ const {
   Placeholder,
   ToggleControl,
 } = wp.components;
-const { BlockControls, InspectorControls } = wp.editor;
+import { BlockControls, InspectorControls } from "@wordpress/block-editor";
 const { __ } = wp.i18n;
 const { compose } = wp.compose;
 const { useEffect, useState, Fragment } = wp.element;

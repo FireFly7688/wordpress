@@ -28,7 +28,7 @@ class AjaxActions
     public function fetchVideos()
     {
         // verify nonce
-        if( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'wp_rest' ) ) {
+        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'wp_rest')) {
             wp_send_json_error();
         }
 
@@ -39,12 +39,12 @@ class AjaxActions
 
         $args = [];
 
-        if(!empty($_POST['search'])){
-          $args['s'] = sanitize_text_field($_POST['search']);
+        if (!empty($_POST['search'])) {
+            $args['s'] = sanitize_text_field($_POST['search']);
         }
 
-        if(!empty($_POST['post_id'])){
-          $args['post__in'][0] = sanitize_text_field($_POST['post_id']); // Convert single post_id into array.
+        if (!empty($_POST['post_id'])) {
+            $args['post__in'][0] = sanitize_text_field($_POST['post_id']); // Convert single post_id into array.
         }
 
         $videos = (new ReusableVideo())->fetch($args);

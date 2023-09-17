@@ -1,7 +1,6 @@
-const { __ } = wp.i18n;
-const { Flex, FlexItem, FlexBlock, TextControl, Button } = wp.components;
-const { useState } = wp.element;
-
+import { __ } from "@wordpress/i18n";
+import { Flex, FlexItem, FlexBlock, TextControl, Button } from "@wordpress/components";
+import { useState } from "@wordpress/element";
 import { sanitizeTime } from "../../../util";
 
 const Chapter = ({
@@ -11,8 +10,6 @@ const Chapter = ({
   className,
   time,
   title,
-  disabled,
-  showNotice,
 }) => {
   const [draftTime, setDraftTime] = useState(time);
 
@@ -31,7 +28,6 @@ const Chapter = ({
             setDraftTime(time);
           }}
           autoComplete="off"
-          placeholder="0:00"
         />
       </FlexItem>
 

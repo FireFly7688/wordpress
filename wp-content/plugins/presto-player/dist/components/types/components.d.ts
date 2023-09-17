@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { ActionBarConfig, blockAttributes, BunnyConfig, ButtonLinkObject, CTA, DynamicOverlay, EmailCollection, i18nConfig, MutedOverlay, presetAttributes, prestoBranding, prestoChapters, PrestoConfig, SearchBarConfig, YoutubeConfig } from "./interfaces";
+import { ActionBarConfig, blockAttributes, BunnyConfig, ButtonLinkObject, CTA, DynamicOverlay, EmailCollection, i18nConfig, MutedOverlay, PlaylistItem, presetAttributes, prestoBranding, prestoChapters, PrestoConfig, SearchBarConfig, YoutubeConfig } from "./interfaces";
 export namespace Components {
     interface PrestoActionBar {
         "config": ActionBarConfig;
@@ -278,6 +278,62 @@ export namespace Components {
     }
     interface PrestoPlayerSpinner {
     }
+    interface PrestoPlaylist {
+        /**
+          * Title for the Playlist
+         */
+        "heading": string;
+        /**
+          * Array of videos from the Playlist
+         */
+        "items": Array<PlaylistItem>;
+        /**
+          * Count prefix string for the Playlist - Plural
+         */
+        "listTextPlural": string;
+        /**
+          * Count prefix string for the Playlist - Singular
+         */
+        "listTextSingular": string;
+        /**
+          * Transition duration for next video.
+         */
+        "transitionDuration": number;
+    }
+    interface PrestoPlaylistItem {
+        /**
+          * Active status
+         */
+        "active": boolean;
+        /**
+          * Playing status
+         */
+        "playing": boolean;
+    }
+    interface PrestoPlaylistOverlay {
+        /**
+          * Flag to handle if this item is the last item in the list.
+         */
+        "isLastItem": boolean;
+        /**
+          * String for the Button that says `Next Video`
+         */
+        "nextItemString": string;
+        /**
+          * Title of the upcoming next playlist item
+         */
+        "nextItemTitle": string;
+        /**
+          * Visibility flag for the Overlay
+         */
+        "show": boolean;
+        /**
+          * Transition duration for next video.
+         */
+        "transitionDuration": number;
+    }
+    interface PrestoPlaylistUi {
+    }
     interface PrestoSearchBar {
         "player": any;
         /**
@@ -380,6 +436,14 @@ export interface PrestoPlayerCustomEvent<T> extends CustomEvent<T> {
 export interface PrestoPlayerButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPrestoPlayerButtonElement;
+}
+export interface PrestoPlaylistItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPrestoPlaylistItemElement;
+}
+export interface PrestoPlaylistOverlayCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPrestoPlaylistOverlayElement;
 }
 export interface PrestoSearchBarUiCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -510,6 +574,30 @@ declare global {
         prototype: HTMLPrestoPlayerSpinnerElement;
         new (): HTMLPrestoPlayerSpinnerElement;
     };
+    interface HTMLPrestoPlaylistElement extends Components.PrestoPlaylist, HTMLStencilElement {
+    }
+    var HTMLPrestoPlaylistElement: {
+        prototype: HTMLPrestoPlaylistElement;
+        new (): HTMLPrestoPlaylistElement;
+    };
+    interface HTMLPrestoPlaylistItemElement extends Components.PrestoPlaylistItem, HTMLStencilElement {
+    }
+    var HTMLPrestoPlaylistItemElement: {
+        prototype: HTMLPrestoPlaylistItemElement;
+        new (): HTMLPrestoPlaylistItemElement;
+    };
+    interface HTMLPrestoPlaylistOverlayElement extends Components.PrestoPlaylistOverlay, HTMLStencilElement {
+    }
+    var HTMLPrestoPlaylistOverlayElement: {
+        prototype: HTMLPrestoPlaylistOverlayElement;
+        new (): HTMLPrestoPlaylistOverlayElement;
+    };
+    interface HTMLPrestoPlaylistUiElement extends Components.PrestoPlaylistUi, HTMLStencilElement {
+    }
+    var HTMLPrestoPlaylistUiElement: {
+        prototype: HTMLPrestoPlaylistUiElement;
+        new (): HTMLPrestoPlaylistUiElement;
+    };
     interface HTMLPrestoSearchBarElement extends Components.PrestoSearchBar, HTMLStencilElement {
     }
     var HTMLPrestoSearchBarElement: {
@@ -585,6 +673,10 @@ declare global {
         "presto-player-button": HTMLPrestoPlayerButtonElement;
         "presto-player-skeleton": HTMLPrestoPlayerSkeletonElement;
         "presto-player-spinner": HTMLPrestoPlayerSpinnerElement;
+        "presto-playlist": HTMLPrestoPlaylistElement;
+        "presto-playlist-item": HTMLPrestoPlaylistItemElement;
+        "presto-playlist-overlay": HTMLPrestoPlaylistOverlayElement;
+        "presto-playlist-ui": HTMLPrestoPlaylistUiElement;
         "presto-search-bar": HTMLPrestoSearchBarElement;
         "presto-search-bar-ui": HTMLPrestoSearchBarUiElement;
         "presto-stacked-skin": HTMLPrestoStackedSkinElement;
@@ -779,10 +871,14 @@ declare namespace LocalJSX {
         "markers"?: any;
         "mediaTitle"?: string;
         "onCurrentMediaPlayer"?: (event: PrestoPlayerCustomEvent<object>) => void;
+        "onEndedMedia"?: (event: PrestoPlayerCustomEvent<object>) => void;
         /**
           * Component loaded
          */
         "onLoaded"?: (event: PrestoPlayerCustomEvent<boolean>) => void;
+        "onPausedMedia"?: (event: PrestoPlayerCustomEvent<object>) => void;
+        "onPlayedMedia"?: (event: PrestoPlayerCustomEvent<object>) => void;
+        "onPlayerReady"?: (event: PrestoPlayerCustomEvent<object>) => void;
         "overlays"?: Array<DynamicOverlay>;
         "playsinline"?: boolean;
         "poster"?: string;
@@ -852,6 +948,78 @@ declare namespace LocalJSX {
         "effect"?: 'pulse' | 'sheen' | 'none';
     }
     interface PrestoPlayerSpinner {
+    }
+    interface PrestoPlaylist {
+        /**
+          * Title for the Playlist
+         */
+        "heading"?: string;
+        /**
+          * Array of videos from the Playlist
+         */
+        "items"?: Array<PlaylistItem>;
+        /**
+          * Count prefix string for the Playlist - Plural
+         */
+        "listTextPlural"?: string;
+        /**
+          * Count prefix string for the Playlist - Singular
+         */
+        "listTextSingular"?: string;
+        /**
+          * Transition duration for next video.
+         */
+        "transitionDuration"?: number;
+    }
+    interface PrestoPlaylistItem {
+        /**
+          * Active status
+         */
+        "active"?: boolean;
+        /**
+          * Emit pause event
+         */
+        "onTriggerPause"?: (event: PrestoPlaylistItemCustomEvent<void>) => void;
+        /**
+          * Emit play event
+         */
+        "onTriggerPlay"?: (event: PrestoPlaylistItemCustomEvent<void>) => void;
+        /**
+          * Playing status
+         */
+        "playing"?: boolean;
+    }
+    interface PrestoPlaylistOverlay {
+        /**
+          * Flag to handle if this item is the last item in the list.
+         */
+        "isLastItem"?: boolean;
+        /**
+          * String for the Button that says `Next Video`
+         */
+        "nextItemString"?: string;
+        /**
+          * Title of the upcoming next playlist item
+         */
+        "nextItemTitle"?: string;
+        /**
+          * Next item play event
+         */
+        "onNext"?: (event: PrestoPlaylistOverlayCustomEvent<void>) => void;
+        /**
+          * Rewatch item event
+         */
+        "onRewatch"?: (event: PrestoPlaylistOverlayCustomEvent<void>) => void;
+        /**
+          * Visibility flag for the Overlay
+         */
+        "show"?: boolean;
+        /**
+          * Transition duration for next video.
+         */
+        "transitionDuration"?: number;
+    }
+    interface PrestoPlaylistUi {
     }
     interface PrestoSearchBar {
         "player"?: any;
@@ -956,6 +1124,10 @@ declare namespace LocalJSX {
         "presto-player-button": PrestoPlayerButton;
         "presto-player-skeleton": PrestoPlayerSkeleton;
         "presto-player-spinner": PrestoPlayerSpinner;
+        "presto-playlist": PrestoPlaylist;
+        "presto-playlist-item": PrestoPlaylistItem;
+        "presto-playlist-overlay": PrestoPlaylistOverlay;
+        "presto-playlist-ui": PrestoPlaylistUi;
         "presto-search-bar": PrestoSearchBar;
         "presto-search-bar-ui": PrestoSearchBarUi;
         "presto-stacked-skin": PrestoStackedSkin;
@@ -991,6 +1163,10 @@ declare module "@stencil/core" {
             "presto-player-button": LocalJSX.PrestoPlayerButton & JSXBase.HTMLAttributes<HTMLPrestoPlayerButtonElement>;
             "presto-player-skeleton": LocalJSX.PrestoPlayerSkeleton & JSXBase.HTMLAttributes<HTMLPrestoPlayerSkeletonElement>;
             "presto-player-spinner": LocalJSX.PrestoPlayerSpinner & JSXBase.HTMLAttributes<HTMLPrestoPlayerSpinnerElement>;
+            "presto-playlist": LocalJSX.PrestoPlaylist & JSXBase.HTMLAttributes<HTMLPrestoPlaylistElement>;
+            "presto-playlist-item": LocalJSX.PrestoPlaylistItem & JSXBase.HTMLAttributes<HTMLPrestoPlaylistItemElement>;
+            "presto-playlist-overlay": LocalJSX.PrestoPlaylistOverlay & JSXBase.HTMLAttributes<HTMLPrestoPlaylistOverlayElement>;
+            "presto-playlist-ui": LocalJSX.PrestoPlaylistUi & JSXBase.HTMLAttributes<HTMLPrestoPlaylistUiElement>;
             "presto-search-bar": LocalJSX.PrestoSearchBar & JSXBase.HTMLAttributes<HTMLPrestoSearchBarElement>;
             "presto-search-bar-ui": LocalJSX.PrestoSearchBarUi & JSXBase.HTMLAttributes<HTMLPrestoSearchBarUiElement>;
             "presto-stacked-skin": LocalJSX.PrestoStackedSkin & JSXBase.HTMLAttributes<HTMLPrestoStackedSkinElement>;

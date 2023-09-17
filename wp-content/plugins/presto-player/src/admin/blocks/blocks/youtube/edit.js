@@ -9,7 +9,7 @@ const {
   Spinner,
   withNotices,
 } = wp.components;
-const { BlockControls, InspectorControls } = wp.editor;
+import { BlockControls, InspectorControls } from "@wordpress/block-editor";
 const { useEffect } = wp.element;
 const { __ } = wp.i18n;
 const { compose } = wp.compose;

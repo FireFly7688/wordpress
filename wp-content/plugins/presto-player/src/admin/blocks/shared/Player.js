@@ -1,4 +1,3 @@
-import { css } from "@emotion/core";
 import {
   PrestoPlayer,
   PrestoSearchBarUi,
@@ -8,18 +7,20 @@ import { useRef, useEffect } from "@wordpress/element";
 import { useSelect } from "@wordpress/data";
 import { convertHex } from "../../../shared/util";
 
-export default ({
-  src,
-  classes,
-  preset,
-  branding,
-  attributes,
-  adminPreview,
-  currentTime,
-  preload = "metadata",
-  overlays,
-  type,
-}) => {
+export default (props) => {
+  const {
+    src,
+    classes,
+    preset,
+    branding,
+    attributes,
+    adminPreview,
+    currentTime,
+    preload = "metadata",
+    overlays,
+    type,
+  } = props;
+
   const ref = useRef();
   const {
     previewThumbnail,
@@ -81,7 +82,7 @@ export default ({
     attributes,
     adminPreview,
     currentTime,
-    (preload = "metadata"),
+    preload,
     overlays,
     type,
   ]);
